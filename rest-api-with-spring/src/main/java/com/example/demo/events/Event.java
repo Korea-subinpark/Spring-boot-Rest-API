@@ -38,6 +38,22 @@ public class Event {
 	
 	@Enumerated(EnumType.STRING)//순서가 바뀌었을 때 혼동을 방지하기 위해 String으로 변경
 	private EventStatus eventStatus = EventStatus.DRAFT;
+
+	public void update() {
+		//Update free
+		if(this.basePrice == 0 && this.maxPrice == 0) {
+			this.free = true;
+		} else {
+			this.free = false;
+		}
+		
+		//Update offline
+		if(this.location == null || this.location.isBlank()) {//자바 11버전에 추가된 함수
+			this.offline = false;
+		} else {
+			this.offline = true;
+		}
+	}
 	
 	
 }
