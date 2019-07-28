@@ -66,8 +66,7 @@ public class EventControllerTests {
 				.andExpect(header().string(HttpHeaders.CONTENT_TYPE, MediaTypes.HAL_JSON_UTF8_VALUE))
 				.andExpect(jsonPath("id").value(Matchers.not(100)))//id와 free는 입력되면 안되는 값들이기 때문에 없어야 한다
 				.andExpect(jsonPath("free").value(Matchers.not(true)))
-				.andExpect(jsonPath("eventStatus").value(EventStatus.DRAFT))
-			;
+				.andExpect(jsonPath("eventStatus").value(EventStatus.DRAFT));
 	}
 	
 	
@@ -96,8 +95,7 @@ public class EventControllerTests {
 				.accept(MediaTypes.HAL_JSON)//어떤 응답을 원하는지
 				.content(objectMapper.writeValueAsString(event)))
 				.andDo(print())
-				.andExpect(status().isBadRequest())
-		;
+				.andExpect(status().isBadRequest());
 	}
 	
 	@Test
@@ -131,7 +129,10 @@ public class EventControllerTests {
 		this.mockMvc.perform(post("/api/events")
 					.contentType(MediaType.APPLICATION_JSON_UTF8)
 					.content(this.objectMapper.writeValueAsString(eventDto)))
-				.andExpect(status().isBadRequest());
+				.andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$[0].objectName").exists())
+				.andExpect(jsonPath("$[0].defaultMessage").exists())
+				.andExpect(jsonPath("$[0].code").exists());
 		
 	}
 	
