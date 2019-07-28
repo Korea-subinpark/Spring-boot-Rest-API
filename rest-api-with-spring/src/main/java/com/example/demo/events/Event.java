@@ -7,6 +7,9 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+import com.example.demo.accounts.Account;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -35,6 +38,9 @@ public class Event {
 	private int	limitOfEnrollment;
 	private boolean offline;
 	private boolean free;
+	
+	@ManyToOne
+	private Account manager;
 	
 	@Enumerated(EnumType.STRING)//순서가 바뀌었을 때 혼동을 방지하기 위해 String으로 변경
 	private EventStatus eventStatus = EventStatus.DRAFT;
