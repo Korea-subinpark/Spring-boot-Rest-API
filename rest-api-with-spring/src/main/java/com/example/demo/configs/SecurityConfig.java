@@ -56,16 +56,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 //				.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).anonymous();
 //	}
 	
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http
-			.anonymous()
-				.and()
-			.formLogin()
-				.and()
-			.authorizeRequests()
-				.mvcMatchers(HttpMethod.GET, "/api/**").anonymous()//GET /api/** => 누구나 접근
-				.anyRequest().authenticated();	//나머지는 인증 필요
-	}
+//	@Override
+//	protected void configure(HttpSecurity http) throws Exception {
+//		http
+//			.anonymous()
+//				.and()
+//			.formLogin()
+//				.and()
+//			.authorizeRequests()
+//				.mvcMatchers(HttpMethod.GET, "/api/**").anonymous()//GET /api/** => 누구나 접근
+//				.anyRequest().authenticated();	//나머지는 인증 필요
+//	}
 	
 }
