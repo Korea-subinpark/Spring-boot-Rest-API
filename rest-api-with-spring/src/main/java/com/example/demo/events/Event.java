@@ -37,7 +37,7 @@ public class Event {
 	private boolean free;
 	
 	@Enumerated(EnumType.STRING)//순서가 바뀌었을 때 혼동을 방지하기 위해 String으로 변경
-	private EventStatus eventStatus;
+	private EventStatus eventStatus = EventStatus.DRAFT;
 	
 	
 }

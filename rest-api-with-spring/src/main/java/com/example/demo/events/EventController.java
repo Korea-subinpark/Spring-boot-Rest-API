@@ -4,6 +4,7 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 import java.net.URI;
 
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +20,13 @@ public class EventController {
 	@Autowired
 	EventRepository eventRepository;
 	
+	@Autowired
+	ModelMapper modelMapper;
+	
 	@PostMapping
-	public ResponseEntity createEvent(@RequestBody Event event) {
+	public ResponseEntity createEvent(@RequestBody EventDto eventDto) {
+		Event event = modelMapper.map(eventDto, Event.class);
 		Event newEvent = eventRepository.save(event);
-		
 		URI createdUri = linkTo(EventController.class).slash(newEvent.getId()).toUri();
 		return ResponseEntity.created(createdUri).body(event);
 	}
