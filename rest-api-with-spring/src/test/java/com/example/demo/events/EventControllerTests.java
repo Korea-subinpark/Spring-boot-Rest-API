@@ -23,6 +23,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
+import com.example.demo.common.TestDescription;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -38,6 +39,7 @@ public class EventControllerTests {
 	ObjectMapper objectMapper;
 	
 	@Test
+	@TestDescription("정상적으로 이벤트를 생성하는 테스트")
 	public void createEvent() throws Exception {
 		EventDto event = EventDto.builder()
 				.name("Spring")
@@ -70,6 +72,7 @@ public class EventControllerTests {
 	
 	
 	@Test
+	@TestDescription("입력받을 수 없는 값이 입력되었을 때 테스트")
 	public void createEventBadRequest() throws Exception {
 		Event event = Event.builder()
 				.id(100)
@@ -98,6 +101,7 @@ public class EventControllerTests {
 	}
 	
 	@Test
+	@TestDescription("입력값이 비어있을 때 테스트")
 	public void createEventBadRequestEmptyInput() throws Exception {
 		EventDto eventDto = EventDto.builder().build();
 		
@@ -109,6 +113,7 @@ public class EventControllerTests {
 	}
 	
 	@Test
+	@TestDescription("입력값이 잘못된 경우 테스트")
 	public void createEventBadRequestWrongInput() throws Exception {
 		EventDto eventDto = EventDto.builder()
 				.name("Spring")
