@@ -4,7 +4,10 @@ import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 
 import java.net.URI;
 
+import javax.validation.Valid;
+
 import org.modelmapper.ModelMapper;
+import org.modelmapper.internal.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +27,10 @@ public class EventController {
 	ModelMapper modelMapper;
 	
 	@PostMapping
-	public ResponseEntity createEvent(@RequestBody EventDto eventDto) {
+	public ResponseEntity createEvent(@RequestBody @Valid EventDto eventDto, Errors errors) {
+		if(errors.hasErrors()) {
+			return ResponseEntity.badRequest().build();
+		}
 		Event event = modelMapper.map(eventDto, Event.class);
 		Event newEvent = eventRepository.save(event);
 		URI createdUri = linkTo(EventController.class).slash(newEvent.getId()).toUri();
